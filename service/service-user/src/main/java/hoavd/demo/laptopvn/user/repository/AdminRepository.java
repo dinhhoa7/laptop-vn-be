@@ -12,6 +12,8 @@ public interface AdminRepository extends JpaRepository<Admin, Long> {
   @Query(value = "select * from admin a order by a.created_at desc", nativeQuery = true)
   Page<Admin> getPageListAdmin(Pageable pageable);
 
+  Admin findById(long id);
+
   Admin getByEmail(String email);
 
   Admin getByIdAndEmail(long id, String email);

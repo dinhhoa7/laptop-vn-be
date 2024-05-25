@@ -19,6 +19,11 @@ public class AdminServiceImpl implements AdminService {
   }
 
   @Override
+  public Admin getAdminById(long id) {
+    return adminRepository.findById(id);
+  }
+
+  @Override
   public Admin getByEmail(String email) {
     return adminRepository.getByEmail(email);
   }

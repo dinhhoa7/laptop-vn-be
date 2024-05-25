@@ -7,6 +7,8 @@ import org.springframework.data.domain.Pageable;
 public interface AdminService {
   Page<Admin> getPageListAdmin(Pageable pageable);
 
+  Admin getAdminById(long id);
+
   Admin getByEmail(String email);
 
   Admin getByIdAndEmail(long id, String email);

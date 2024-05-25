@@ -1,7 +1,9 @@
 package hoavd.demo.laptopvn.admin.service.impl;
 
 import hoavd.demo.laptopvn.admin.model.AdminRequest;
+import hoavd.demo.laptopvn.admin.model.AdminUpdateRequest;
 import hoavd.demo.laptopvn.admin.model.UserRequest;
+import hoavd.demo.laptopvn.admin.model.UserUpdateRequest;
 import hoavd.demo.laptopvn.admin.service.AdminUserService;
 import hoavd.demo.laptopvn.common.constants.ResponseMessageConstants;
 import hoavd.demo.laptopvn.common.enums.Enums;
@@ -12,6 +14,9 @@ import hoavd.demo.laptopvn.user.entity.Admin;
 import hoavd.demo.laptopvn.user.entity.User;
 import hoavd.demo.laptopvn.user.service.AdminService;
 import hoavd.demo.laptopvn.user.service.UserService;
+import org.apache.logging.log4j.util.Strings;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,6 +28,8 @@ import java.util.List;
 
 @Service
 public class AdminUserServiceImpl implements AdminUserService {
+  private static final Logger logger = LoggerFactory.getLogger(AdminUserServiceImpl.class);
+
   @Autowired
   private AdminService adminService;
 
@@ -66,6 +73,40 @@ public class AdminUserServiceImpl implements AdminUserService {
     user.setAddress(request.getAddress());
     user.setPhoneNumber(request.getPhoneNumber());
     user.create();
+    return userService.save(user);
+  }
+
+  @Override
+  public Admin updateAdmin(AdminUpdateRequest request) throws Exception {
+    logger.info(request.toString());
+    Admin admin = adminService.getAdminById(request.getId());
+    if (admin == null)
+      throw new BusinessException(ResponseMessageConstants.ADMIN_DOES_NOT_EXIST);
+    if (Strings.isBlank(request.getEmail()) || Strings.isBlank(request.getPassword())){
+      throw new BusinessException(ResponseMessageConstants.INFORMATION_INVALID);
+    }
+    admin.setEmail(request.getEmail());
+    admin.setPassword(passwordEncoder.encode(request.getPassword()));
+    admin.update();
+    return adminService.save(admin);
+  }
+
+  @Override
+  public User updateUser(UserUpdateRequest request) throws Exception {
+    logger.info(request.toString());
+    User user = userService.getUserById(request.getId());
+    if (user == null)
+      throw new BusinessException(ResponseMessageConstants.ADMIN_DOES_NOT_EXIST);
+    if (Strings.isBlank(request.getEmail()) || Strings.isBlank(request.getPassword()) || Strings.isBlank(request.getFullName()) ||
+      Strings.isBlank(request.getAddress()) || Strings.isBlank(request.getPhoneNumber())) {
+      throw new BusinessException(ResponseMessageConstants.INFORMATION_INVALID);
+    }
+    user.setEmail(request.getEmail());
+    user.setPassword(passwordEncoder.encode(request.getPassword()));
+    user.setFullName(request.getFullName());
+    user.setAddress(request.getAddress());
+    user.setPhoneNumber(request.getPhoneNumber());
+    user.update();
     return userService.save(user);
   }
 

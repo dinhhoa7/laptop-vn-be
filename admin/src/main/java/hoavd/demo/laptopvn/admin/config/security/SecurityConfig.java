@@ -32,6 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
       .antMatchers(HttpMethod.OPTIONS, "/**").anonymous()
       .antMatchers(adminConfig.getUriUnauthorized()).permitAll()
       .anyRequest().authenticated()
+//      .anyRequest().permitAll()
       .and()
       .exceptionHandling()
       .authenticationEntryPoint(unauthorizedEntryPoint())

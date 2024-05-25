@@ -10,5 +10,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
   @Query(value = "select * from users u order by u.created_at desc", nativeQuery = true)
   Page<User> getPageListUser(Pageable pageable);
 
+  User findById(long id);
+
   User getByEmail(String email);
 }

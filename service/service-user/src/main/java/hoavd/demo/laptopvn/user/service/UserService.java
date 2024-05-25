@@ -7,6 +7,8 @@ import org.springframework.data.domain.Pageable;
 public interface UserService {
   Page<User> getPageListUser(Pageable pageable);
 
+  User getUserById(long id);
+
   User getByEmail(String email);
 
   User save(User user);

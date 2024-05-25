@@ -1,7 +1,9 @@
 package hoavd.demo.laptopvn.admin.service;
 
 import hoavd.demo.laptopvn.admin.model.AdminRequest;
+import hoavd.demo.laptopvn.admin.model.AdminUpdateRequest;
 import hoavd.demo.laptopvn.admin.model.UserRequest;
+import hoavd.demo.laptopvn.admin.model.UserUpdateRequest;
 import hoavd.demo.laptopvn.common.model.ResponseDataPagination;
 import hoavd.demo.laptopvn.user.entity.Admin;
 import hoavd.demo.laptopvn.user.entity.User;
@@ -12,6 +14,10 @@ public interface AdminUserService {
   Admin createAdmin(AdminRequest request) throws Exception;
 
   User createUser(UserRequest request) throws Exception;
+
+  Admin updateAdmin(AdminUpdateRequest request) throws Exception;
+
+  User updateUser(UserUpdateRequest request) throws Exception;
 
   ResponseDataPagination getPageListAdmin(int page, int size) throws Exception;
 

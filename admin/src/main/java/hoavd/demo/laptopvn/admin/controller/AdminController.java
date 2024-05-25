@@ -1,7 +1,9 @@
 package hoavd.demo.laptopvn.admin.controller;
 
 import hoavd.demo.laptopvn.admin.model.AdminRequest;
+import hoavd.demo.laptopvn.admin.model.AdminUpdateRequest;
 import hoavd.demo.laptopvn.admin.model.UserRequest;
+import hoavd.demo.laptopvn.admin.model.UserUpdateRequest;
 import hoavd.demo.laptopvn.admin.service.AdminUserService;
 import hoavd.demo.laptopvn.common.constants.PagingConstants;
 import hoavd.demo.laptopvn.common.constants.ResponseMessageConstants;
@@ -37,7 +39,7 @@ public class AdminController {
     } catch (Exception ex) {
       logger.error(LogUtils.printLogStackTrace(ex));
       responseData.setStatus(Enums.ResponseStatus.ERROR.getStatus());
-      responseData.setMessage(ResponseMessageConstants.MSG_ERR_SYSTEM);
+      responseData.setMessage(ResponseMessageConstants.ERR_SYSTEM);
     }
     return responseData;
   }
@@ -55,7 +57,7 @@ public class AdminController {
     } catch (Exception ex) {
       logger.error(LogUtils.printLogStackTrace(ex));
       responseData.setStatus(Enums.ResponseStatus.ERROR.getStatus());
-      responseData.setMessage(ResponseMessageConstants.MSG_ERR_SYSTEM);
+      responseData.setMessage(ResponseMessageConstants.ERR_SYSTEM);
     }
     return responseData;
   }
@@ -88,6 +90,46 @@ public class AdminController {
       responseData.setData(user);
       responseData.setStatus(Enums.ResponseStatus.SUCCESS);
       responseData.setMessage(ResponseMessageConstants.CREATE_ACC_USER_SUCCESS);
+    } catch (BusinessException be) {
+      logger.error(be.getMessage());
+      responseData.setMessage(be.getMessage());
+      responseData.setStatus(Enums.ResponseStatus.ERROR);
+    } catch (Exception ex) {
+      logger.error(LogUtils.printLogStackTrace(ex));
+      responseData.setMessage(ResponseMessageConstants.ERROR);
+      responseData.setStatus(Enums.ResponseStatus.ERROR);
+    }
+    return responseData;
+  }
+
+  @PutMapping("/update-admin")
+  public ResponseData updateAdmin(@RequestBody AdminUpdateRequest request){
+    ResponseData responseData = new ResponseData();
+    try {
+      Admin admin = adminUserService.updateAdmin(request);
+      responseData.setData(admin);
+      responseData.setStatus(Enums.ResponseStatus.SUCCESS);
+      responseData.setMessage(ResponseMessageConstants.UPDATE_ACC_ADMIN_SUCCESS);
+    } catch (BusinessException be) {
+      logger.error(be.getMessage());
+      responseData.setMessage(be.getMessage());
+      responseData.setStatus(Enums.ResponseStatus.ERROR);
+    } catch (Exception ex) {
+      logger.error(LogUtils.printLogStackTrace(ex));
+      responseData.setMessage(ResponseMessageConstants.ERROR);
+      responseData.setStatus(Enums.ResponseStatus.ERROR);
+    }
+    return responseData;
+  }
+
+  @PutMapping("/update-user")
+  public ResponseData updateUser(@RequestBody UserUpdateRequest request){
+    ResponseData responseData = new ResponseData();
+    try {
+      User user = adminUserService.updateUser(request);
+      responseData.setData(user);
+      responseData.setStatus(Enums.ResponseStatus.SUCCESS);
+      responseData.setMessage(ResponseMessageConstants.UPDATE_ACC_USER_SUCCESS);
     } catch (BusinessException be) {
       logger.error(be.getMessage());
       responseData.setMessage(be.getMessage());
