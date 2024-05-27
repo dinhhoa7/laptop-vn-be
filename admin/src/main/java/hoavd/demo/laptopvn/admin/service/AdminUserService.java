@@ -19,6 +19,10 @@ public interface AdminUserService {
 
   User updateUser(UserUpdateRequest request) throws Exception;
 
+  void deleteAdmin(long id) throws Exception;
+
+  void  deleteUser(long id) throws Exception;
+
   ResponseDataPagination getPageListAdmin(int page, int size) throws Exception;
 
   ResponseDataPagination getPageListUser(int page, int size) throws Exception;

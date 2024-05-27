@@ -141,4 +141,42 @@ public class AdminController {
     }
     return responseData;
   }
+
+  @DeleteMapping("/delete-admin")
+  public ResponseData deleteAdmin(@PathVariable long id){
+    ResponseData responseData = new ResponseData();
+    try {
+      adminUserService.deleteAdmin(id);
+      responseData.setStatus(Enums.ResponseStatus.SUCCESS);
+      responseData.setMessage(ResponseMessageConstants.DELETE_ACC_ADMIN_SUCCESS);
+    } catch (BusinessException be) {
+      logger.error(be.getMessage());
+      responseData.setMessage(be.getMessage());
+      responseData.setStatus(Enums.ResponseStatus.ERROR);
+    } catch (Exception ex) {
+      logger.error(LogUtils.printLogStackTrace(ex));
+      responseData.setMessage(ResponseMessageConstants.ERROR);
+      responseData.setStatus(Enums.ResponseStatus.ERROR);
+    }
+    return responseData;
+  }
+
+  @DeleteMapping("/delete-user")
+  public ResponseData deleteUser(@PathVariable long id){
+    ResponseData responseData = new ResponseData();
+    try {
+      adminUserService.deleteUser(id);
+      responseData.setStatus(Enums.ResponseStatus.SUCCESS);
+      responseData.setMessage(ResponseMessageConstants.DELETE_ACC_USER_SUCCESS);
+    } catch (BusinessException be) {
+      logger.error(be.getMessage());
+      responseData.setMessage(be.getMessage());
+      responseData.setStatus(Enums.ResponseStatus.ERROR);
+    } catch (Exception ex) {
+      logger.error(LogUtils.printLogStackTrace(ex));
+      responseData.setMessage(ResponseMessageConstants.ERROR);
+      responseData.setStatus(Enums.ResponseStatus.ERROR);
+    }
+    return responseData;
+  }
 }

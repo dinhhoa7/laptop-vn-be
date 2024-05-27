@@ -96,7 +96,7 @@ public class AdminUserServiceImpl implements AdminUserService {
     logger.info(request.toString());
     User user = userService.getUserById(request.getId());
     if (user == null)
-      throw new BusinessException(ResponseMessageConstants.ADMIN_DOES_NOT_EXIST);
+      throw new BusinessException(ResponseMessageConstants.USER_DOES_NOT_EXIST);
     if (Strings.isBlank(request.getEmail()) || Strings.isBlank(request.getPassword()) || Strings.isBlank(request.getFullName()) ||
       Strings.isBlank(request.getAddress()) || Strings.isBlank(request.getPhoneNumber())) {
       throw new BusinessException(ResponseMessageConstants.INFORMATION_INVALID);
@@ -108,6 +108,22 @@ public class AdminUserServiceImpl implements AdminUserService {
     user.setPhoneNumber(request.getPhoneNumber());
     user.update();
     return userService.save(user);
+  }
+
+  @Override
+  public void deleteAdmin(long id) throws Exception {
+    Admin admin = adminService.getAdminById(id);
+    if (admin == null)
+      throw new BusinessException(ResponseMessageConstants.ADMIN_DOES_NOT_EXIST);
+    adminService.delete(id);
+  }
+
+  @Override
+  public void deleteUser(long id) throws Exception {
+    User user = userService.getUserById(id);
+    if (user == null)
+      throw new BusinessException(ResponseMessageConstants.USER_DOES_NOT_EXIST);
+    userService.delete(id);
   }
 
   @Override

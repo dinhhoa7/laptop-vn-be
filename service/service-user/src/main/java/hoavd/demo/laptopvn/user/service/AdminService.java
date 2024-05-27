@@ -14,4 +14,6 @@ public interface AdminService {
   Admin getByIdAndEmail(long id, String email);
 
   Admin save(Admin admin);
+
+  void delete(long id);
 }

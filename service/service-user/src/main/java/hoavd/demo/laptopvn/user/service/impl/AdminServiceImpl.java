@@ -37,4 +37,9 @@ public class AdminServiceImpl implements AdminService {
   public Admin save(Admin admin) {
     return adminRepository.save(admin);
   }
+
+  @Override
+  public void delete(long id) {
+    adminRepository.deleteById(id);
+  }
 }
