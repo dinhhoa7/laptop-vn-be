@@ -99,6 +99,11 @@
                 <artifactId>laptop-vn-user</artifactId>
                 <version>${laptop.vn.version}</version>
             </dependency>
+            <dependency>
+                <groupId>hoavd.demo.laptopvn</groupId>
+                <artifactId>laptop-vn-product</artifactId>
+                <version>${laptop.vn.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 </project>

@@ -69,6 +69,10 @@
         </dependency>
         <dependency>
             <groupId>hoavd.demo.laptopvn</groupId>
+            <artifactId>laptop-vn-product</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>hoavd.demo.laptopvn</groupId>
             <artifactId>laptop-vn-common</artifactId>
         </dependency>
     </dependencies>
