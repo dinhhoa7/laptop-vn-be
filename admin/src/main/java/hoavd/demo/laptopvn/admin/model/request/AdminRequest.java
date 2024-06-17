@@ -1,19 +1,9 @@
-package hoavd.demo.laptopvn.admin.model;
+package hoavd.demo.laptopvn.admin.model.request;
 
-public class AdminUpdateRequest {
-  private long id;
-
+public class AdminRequest {
   private String email;
 
   private String password;
-
-  public long getId() {
-    return id;
-  }
-
-  public void setId(long id) {
-    this.id = id;
-  }
 
   public String getEmail() {
     return email;
@@ -30,4 +20,5 @@ public class AdminUpdateRequest {
   public void setPassword(String password) {
     this.password = password;
   }
+
 }

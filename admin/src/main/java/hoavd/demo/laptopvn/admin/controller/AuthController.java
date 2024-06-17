@@ -1,7 +1,7 @@
 package hoavd.demo.laptopvn.admin.controller;
 
 import hoavd.demo.laptopvn.admin.config.security.JwtTokenProvider;
-import hoavd.demo.laptopvn.admin.model.AdminRequest;
+import hoavd.demo.laptopvn.admin.model.request.AdminRequest;
 import hoavd.demo.laptopvn.admin.service.AdminUserService;
 import hoavd.demo.laptopvn.common.constants.ResponseMessageConstants;
 import hoavd.demo.laptopvn.common.enums.Enums;

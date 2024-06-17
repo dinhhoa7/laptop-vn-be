@@ -1,47 +1,21 @@
-package hoavd.demo.laptopvn.service.entity;
+package hoavd.demo.laptopvn.admin.model.response;
 
-import hoavd.demo.laptopvn.common.model.BaseEntity;
-
-import javax.persistence.*;
-
-@Entity
-@Table(name = "product")
-public class Product extends BaseEntity {
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class ProductDetailResponse {
   private long id;
 
-  @Column(name = "code")
   private String code;
 
-  @Column(name = "category_id")
   private long categoryId;
 
-  @Column(name = "name")
+  private String categoryName;
+
   private String name;
 
-  @Column(name = "description", columnDefinition = "TEXT")
   private String description;
 
-  @Column(name = "is_deleted")
   private boolean isDeleted;
 
-  @Column(name = "status")
   private boolean status;
-
-  public Product() {
-  }
-
-  public Product(long id, String code, long categoryId, String name, String description, boolean isDeleted,
-    boolean status) {
-    this.id = id;
-    this.code = code;
-    this.categoryId = categoryId;
-    this.name = name;
-    this.description = description;
-    this.isDeleted = isDeleted;
-    this.status = status;
-  }
 
   public long getId() {
     return id;
@@ -65,6 +39,14 @@ public class Product extends BaseEntity {
 
   public void setCategoryId(long categoryId) {
     this.categoryId = categoryId;
+  }
+
+  public String getCategoryName() {
+    return categoryName;
+  }
+
+  public void setCategoryName(String categoryName) {
+    this.categoryName = categoryName;
   }
 
   public String getName() {

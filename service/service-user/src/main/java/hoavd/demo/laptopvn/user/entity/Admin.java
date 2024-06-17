@@ -19,6 +19,15 @@ public class Admin extends BaseEntity {
   @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
   private String password;
 
+  public Admin() {
+  }
+
+  public Admin(long id, String email, String password) {
+    this.id = id;
+    this.email = email;
+    this.password = password;
+  }
+
   public long getId() {
     return id;
   }

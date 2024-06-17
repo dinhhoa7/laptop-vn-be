@@ -1,9 +1,8 @@
 package hoavd.demo.laptopvn.admin.service.impl;
 
-import hoavd.demo.laptopvn.admin.model.CategoryRequest;
-import hoavd.demo.laptopvn.admin.model.CategoryUpdateRequest;
-import hoavd.demo.laptopvn.admin.model.ProductRequest;
-import hoavd.demo.laptopvn.admin.model.ProductUpdateRequest;
+import hoavd.demo.laptopvn.admin.model.request.ProductRequest;
+import hoavd.demo.laptopvn.admin.model.request.ProductUpdateRequest;
+import hoavd.demo.laptopvn.admin.model.response.ProductDetailResponse;
 import hoavd.demo.laptopvn.admin.service.AdminProductService;
 import hoavd.demo.laptopvn.common.constants.ResponseMessageConstants;
 import hoavd.demo.laptopvn.common.enums.Enums;
@@ -23,6 +22,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -31,6 +31,9 @@ public class AdminProductServiceImpl implements AdminProductService {
 
   @Autowired
   private ProductService productService;
+
+  @Autowired
+  private CategoryService categoryService;
 
   @Override
   public Product createProduct(ProductRequest request) throws Exception {
@@ -41,8 +44,9 @@ public class AdminProductServiceImpl implements AdminProductService {
     product.setCode(request.getCode());
     product.setCategoryId(request.getCategoryId());
     product.setName(request.getName());
-    product.setStatus(request.isStatus());
-    product.setPrice(request.getPrice());
+    product.setDescription(request.getDescription());
+    product.setDeleted(false);
+    product.setStatus(true);
     product.create();
     return productService.save(product);
   }
@@ -59,8 +63,8 @@ public class AdminProductServiceImpl implements AdminProductService {
     product.setCode(request.getCode());
     product.setCategoryId(request.getCategoryId());
     product.setName(request.getName());
+    product.setDescription(request.getDescription());
     product.setStatus(request.isStatus());
-    product.setPrice(request.getPrice());
     product.update();
     return productService.save(product);
   }
@@ -74,14 +78,28 @@ public class AdminProductServiceImpl implements AdminProductService {
   }
 
   @Override
-  public ResponseDataPagination getPageListProduct(int page, int size) throws Exception {
-    ResponseDataPagination responseDataPagination = new ResponseDataPagination();
+  public ResponseDataPagination getPageListProduct(String name, long category, int page, int size) throws Exception {
     int pageReq = page >= 1 ? page - 1 : page;
     Pageable pageable = PageRequest.of(pageReq, size);
-    Page<Product> productPage = productService.getPageListProduct(pageable);
+    Page<Product> productPage = productService.getPageListProduct(name, category, pageable);
     List<Product> productList = productPage.getContent();
-    responseDataPagination.setData(productList);
+    List<ProductDetailResponse> productDetailResponseList = new ArrayList<>();
+    for (Product pr : productList){
+      ProductDetailResponse res = new ProductDetailResponse();
+      Category categoryObj = categoryService.getCategoryById(pr.getCategoryId());
+      res.setId(pr.getId());
+      res.setCode(pr.getCode());
+      res.setCategoryId(pr.getCategoryId());
+      res.setCategoryName(categoryObj.getName());
+      res.setName(pr.getName());
+      res.setDescription(pr.getDescription());
+      res.setDeleted(pr.isDeleted());
+      res.setStatus(pr.isStatus());
+      productDetailResponseList.add(res);
+    }
+    ResponseDataPagination responseDataPagination = new ResponseDataPagination();
     Pagination pagination = new Pagination();
+    responseDataPagination.setData(productDetailResponseList);
     pagination.setCurrentPage(page);
     pagination.setPageSize(size);
     pagination.setTotalPage(productPage.getTotalPages());

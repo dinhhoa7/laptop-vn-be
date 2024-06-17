@@ -1,9 +1,9 @@
 package hoavd.demo.laptopvn.admin.service.impl;
 
-import hoavd.demo.laptopvn.admin.model.AdminRequest;
-import hoavd.demo.laptopvn.admin.model.AdminUpdateRequest;
-import hoavd.demo.laptopvn.admin.model.UserRequest;
-import hoavd.demo.laptopvn.admin.model.UserUpdateRequest;
+import hoavd.demo.laptopvn.admin.model.request.AdminRequest;
+import hoavd.demo.laptopvn.admin.model.request.AdminUpdateRequest;
+import hoavd.demo.laptopvn.admin.model.request.UserRequest;
+import hoavd.demo.laptopvn.admin.model.request.UserUpdateRequest;
 import hoavd.demo.laptopvn.admin.service.AdminUserService;
 import hoavd.demo.laptopvn.common.constants.ResponseMessageConstants;
 import hoavd.demo.laptopvn.common.enums.Enums;

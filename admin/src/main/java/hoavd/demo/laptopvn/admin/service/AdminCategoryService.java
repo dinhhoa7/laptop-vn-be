@@ -1,10 +1,9 @@
 package hoavd.demo.laptopvn.admin.service;
 
-import hoavd.demo.laptopvn.admin.model.*;
+import hoavd.demo.laptopvn.admin.model.request.CategoryRequest;
+import hoavd.demo.laptopvn.admin.model.request.CategoryUpdateRequest;
 import hoavd.demo.laptopvn.common.model.ResponseDataPagination;
 import hoavd.demo.laptopvn.service.entity.Category;
-import hoavd.demo.laptopvn.user.entity.Admin;
-import hoavd.demo.laptopvn.user.entity.User;
 
 public interface AdminCategoryService {
   Category createCategory(CategoryRequest request) throws Exception;

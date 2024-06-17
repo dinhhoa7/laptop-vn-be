@@ -1,9 +1,7 @@
 package hoavd.demo.laptopvn.admin.service.impl;
 
-import hoavd.demo.laptopvn.admin.model.AdminRequest;
-import hoavd.demo.laptopvn.admin.model.AdminUpdateRequest;
-import hoavd.demo.laptopvn.admin.model.CategoryRequest;
-import hoavd.demo.laptopvn.admin.model.CategoryUpdateRequest;
+import hoavd.demo.laptopvn.admin.model.request.CategoryRequest;
+import hoavd.demo.laptopvn.admin.model.request.CategoryUpdateRequest;
 import hoavd.demo.laptopvn.admin.service.AdminCategoryService;
 import hoavd.demo.laptopvn.common.constants.ResponseMessageConstants;
 import hoavd.demo.laptopvn.common.enums.Enums;
@@ -12,7 +10,6 @@ import hoavd.demo.laptopvn.common.model.Pagination;
 import hoavd.demo.laptopvn.common.model.ResponseDataPagination;
 import hoavd.demo.laptopvn.service.entity.Category;
 import hoavd.demo.laptopvn.service.service.CategoryService;
-import hoavd.demo.laptopvn.user.entity.Admin;
 import org.apache.logging.log4j.util.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,7 +35,9 @@ public class AdminCategoryServiceImpl implements AdminCategoryService {
       throw new BusinessException(ResponseMessageConstants.CATEGORY_NAME_ALREADY_EXIST);
     Category category = new Category();
     category.setName(request.getName());
-    category.setStatus(request.isStatus());
+    category.setDescription(request.getDescription());
+    category.setDeleted(false);
+    category.setStatus(true);
     category.create();
     return categoryService.save(category);
   }
@@ -53,6 +52,7 @@ public class AdminCategoryServiceImpl implements AdminCategoryService {
       throw new BusinessException(ResponseMessageConstants.INFORMATION_INVALID);
     }
     category.setName(request.getName());
+    category.setDescription(request.getDescription());
     category.setStatus(request.isStatus());
     category.update();
     return categoryService.save(category);

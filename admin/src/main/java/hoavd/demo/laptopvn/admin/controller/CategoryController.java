@@ -1,7 +1,7 @@
 package hoavd.demo.laptopvn.admin.controller;
 
-import hoavd.demo.laptopvn.admin.model.CategoryRequest;
-import hoavd.demo.laptopvn.admin.model.CategoryUpdateRequest;
+import hoavd.demo.laptopvn.admin.model.request.CategoryRequest;
+import hoavd.demo.laptopvn.admin.model.request.CategoryUpdateRequest;
 import hoavd.demo.laptopvn.admin.service.AdminCategoryService;
 import hoavd.demo.laptopvn.common.constants.PagingConstants;
 import hoavd.demo.laptopvn.common.constants.ResponseMessageConstants;

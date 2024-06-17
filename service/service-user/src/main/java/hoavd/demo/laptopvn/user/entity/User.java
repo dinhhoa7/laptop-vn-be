@@ -28,6 +28,18 @@ public class User extends BaseEntity {
   @Column(name = "phoneNumber")
   private String phoneNumber;
 
+  public User() {
+  }
+
+  public User(long id, String email, String password, String fullName, String address, String phoneNumber) {
+    this.id = id;
+    this.email = email;
+    this.password = password;
+    this.fullName = fullName;
+    this.address = address;
+    this.phoneNumber = phoneNumber;
+  }
+
   public long getId() {
     return id;
   }

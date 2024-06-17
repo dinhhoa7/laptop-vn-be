@@ -1,10 +1,7 @@
 package hoavd.demo.laptopvn.admin.controller;
 
-import hoavd.demo.laptopvn.admin.model.CategoryRequest;
-import hoavd.demo.laptopvn.admin.model.CategoryUpdateRequest;
-import hoavd.demo.laptopvn.admin.model.ProductRequest;
-import hoavd.demo.laptopvn.admin.model.ProductUpdateRequest;
-import hoavd.demo.laptopvn.admin.service.AdminCategoryService;
+import hoavd.demo.laptopvn.admin.model.request.ProductRequest;
+import hoavd.demo.laptopvn.admin.model.request.ProductUpdateRequest;
 import hoavd.demo.laptopvn.admin.service.AdminProductService;
 import hoavd.demo.laptopvn.common.constants.PagingConstants;
 import hoavd.demo.laptopvn.common.constants.ResponseMessageConstants;
@@ -12,8 +9,8 @@ import hoavd.demo.laptopvn.common.enums.Enums;
 import hoavd.demo.laptopvn.common.exception.BusinessException;
 import hoavd.demo.laptopvn.common.model.ResponseData;
 import hoavd.demo.laptopvn.common.utils.LogUtils;
-import hoavd.demo.laptopvn.service.entity.Category;
 import hoavd.demo.laptopvn.service.entity.Product;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,11 +25,14 @@ public class ProductController {
   private AdminProductService adminProductService;
 
   @GetMapping("/get-list")
-  public ResponseData getListProduct(@RequestParam(value = "page", required = false, defaultValue = PagingConstants.PAGING_STRING_PAGE_DEFAULT) int page,
+  public ResponseData getListProduct(
+    @RequestParam(value = "name", required = false, defaultValue = StringUtils.EMPTY) String productName,
+    @RequestParam(value = "category", required = false, defaultValue = "0") long category,
+    @RequestParam(value = "page", required = false, defaultValue = PagingConstants.PAGING_STRING_PAGE_DEFAULT) int page,
     @RequestParam(value = "size", required = false, defaultValue = PagingConstants.PAGING_STRING_SIZE_DEFAULT) int size) {
     ResponseData responseData = new ResponseData();
     try {
-      return adminProductService.getPageListProduct(page, size);
+      return adminProductService.getPageListProduct(productName, category, page, size);
     } catch (BusinessException be) {
       logger.error(LogUtils.printLogStackTrace(be));
       responseData.setStatus(Enums.ResponseStatus.ERROR);

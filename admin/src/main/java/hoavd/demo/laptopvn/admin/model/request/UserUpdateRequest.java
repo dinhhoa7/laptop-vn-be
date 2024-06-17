@@ -1,4 +1,4 @@
-package hoavd.demo.laptopvn.admin.model;
+package hoavd.demo.laptopvn.admin.model.request;
 
 public class UserUpdateRequest {
   private long id;
