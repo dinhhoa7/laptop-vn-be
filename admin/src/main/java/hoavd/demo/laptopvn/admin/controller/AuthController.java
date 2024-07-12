@@ -28,15 +28,11 @@ public class AuthController {
   @Autowired
   private AdminUserService adminUserService;
 
-  @Autowired
-  private JwtTokenProvider jwtTokenProvider;
-
   @PostMapping("/login")
   public ResponseData login(@RequestBody AdminRequest request){
     ResponseData responseData = new ResponseData();
     try {
-      Admin admin = adminUserService.login(request);
-      String jwt = jwtTokenProvider.generateToken(admin);
+      String jwt = adminUserService.login(request);
       Map<String, Object> authResponse = new HashMap<>();
       authResponse.put("access_token", jwt);
       responseData.setData(authResponse);

@@ -9,6 +9,8 @@ public class UserUpdateRequest {
 
   private String fullName;
 
+  private long dob;
+
   private String address;
 
   private String phoneNumber;
@@ -43,6 +45,14 @@ public class UserUpdateRequest {
 
   public void setFullName(String fullName) {
     this.fullName = fullName;
+  }
+
+  public long getDob() {
+    return dob;
+  }
+
+  public void setDob(long dob) {
+    this.dob = dob;
   }
 
   public String getAddress() {

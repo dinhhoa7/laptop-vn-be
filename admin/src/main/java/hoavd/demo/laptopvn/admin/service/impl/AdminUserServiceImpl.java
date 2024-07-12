@@ -1,5 +1,6 @@
 package hoavd.demo.laptopvn.admin.service.impl;
 
+import hoavd.demo.laptopvn.admin.config.security.JwtTokenProvider;
 import hoavd.demo.laptopvn.admin.model.request.AdminRequest;
 import hoavd.demo.laptopvn.admin.model.request.AdminUpdateRequest;
 import hoavd.demo.laptopvn.admin.model.request.UserRequest;
@@ -37,15 +38,18 @@ public class AdminUserServiceImpl implements AdminUserService {
   private UserService userService;
 
   @Autowired
+  private JwtTokenProvider jwtTokenProvider;
+
+  @Autowired
   private PasswordEncoder passwordEncoder;
 
   @Override
-  public Admin login(AdminRequest adminLoginRequest) throws BusinessException {
+  public String login(AdminRequest adminLoginRequest) throws BusinessException {
     Admin admin = adminService.getByEmail(adminLoginRequest.getEmail().toLowerCase());
     if (admin == null)
       throw new BusinessException(ResponseMessageConstants.ADMIN_DOES_NOT_EXIST);
     if (passwordEncoder.matches(adminLoginRequest.getPassword(), admin.getPassword()))
-      return admin;
+      return jwtTokenProvider.generateToken(admin);
     throw new BusinessException(ResponseMessageConstants.ERROR);
   }
 
@@ -70,6 +74,7 @@ public class AdminUserServiceImpl implements AdminUserService {
     user.setEmail(request.getEmail().toLowerCase());
     user.setPassword(passwordEncoder.encode(request.getPassword()));
     user.setFullName(request.getFullName());
+    user.setDob(request.getDob());
     user.setAddress(request.getAddress());
     user.setPhoneNumber(request.getPhoneNumber());
     user.create();
@@ -104,6 +109,7 @@ public class AdminUserServiceImpl implements AdminUserService {
     user.setEmail(request.getEmail());
     user.setPassword(passwordEncoder.encode(request.getPassword()));
     user.setFullName(request.getFullName());
+    user.setDob(request.getDob());
     user.setAddress(request.getAddress());
     user.setPhoneNumber(request.getPhoneNumber());
     user.update();

@@ -142,7 +142,7 @@ public class AdminController {
     return responseData;
   }
 
-  @DeleteMapping("/delete-admin")
+  @DeleteMapping("/delete-admin/{id}")
   public ResponseData deleteAdmin(@PathVariable long id){
     ResponseData responseData = new ResponseData();
     try {
@@ -161,7 +161,7 @@ public class AdminController {
     return responseData;
   }
 
-  @DeleteMapping("/delete-user")
+  @DeleteMapping("/delete-user/{id}")
   public ResponseData deleteUser(@PathVariable long id){
     ResponseData responseData = new ResponseData();
     try {

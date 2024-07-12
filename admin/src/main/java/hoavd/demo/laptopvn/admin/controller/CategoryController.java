@@ -81,7 +81,7 @@ public class CategoryController {
     return responseData;
   }
 
-  @DeleteMapping("/delete")
+  @DeleteMapping("/delete/{id}")
   public ResponseData deleteCategory(@PathVariable long id){
     ResponseData responseData = new ResponseData();
     try {

@@ -9,7 +9,7 @@ import hoavd.demo.laptopvn.user.entity.Admin;
 import hoavd.demo.laptopvn.user.entity.User;
 
 public interface AdminUserService {
-  Admin login(AdminRequest request) throws Exception;
+  String login(AdminRequest request) throws Exception;
 
   Admin createAdmin(AdminRequest request) throws Exception;
 

@@ -22,6 +22,9 @@ public class User extends BaseEntity {
   @Column(name = "full_name")
   private String fullName;
 
+  @Column(name = "dob")
+  private long dob;
+
   @Column(name = "address")
   private String address;
 
@@ -31,11 +34,12 @@ public class User extends BaseEntity {
   public User() {
   }
 
-  public User(long id, String email, String password, String fullName, String address, String phoneNumber) {
+  public User(long id, String email, String password, String fullName, long dob, String address, String phoneNumber) {
     this.id = id;
     this.email = email;
     this.password = password;
     this.fullName = fullName;
+    this.dob = dob;
     this.address = address;
     this.phoneNumber = phoneNumber;
   }
@@ -70,6 +74,14 @@ public class User extends BaseEntity {
 
   public void setFullName(String fullName) {
     this.fullName = fullName;
+  }
+
+  public long getDob() {
+    return dob;
+  }
+
+  public void setDob(long dob) {
+    this.dob = dob;
   }
 
   public String getAddress() {

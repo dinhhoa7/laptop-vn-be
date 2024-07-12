@@ -85,7 +85,7 @@ public class ProductController {
     return responseData;
   }
 
-  @DeleteMapping("/delete")
+  @DeleteMapping("/delete/{id}")
   public ResponseData deleteProduct(@PathVariable long id){
     ResponseData responseData = new ResponseData();
     try {
