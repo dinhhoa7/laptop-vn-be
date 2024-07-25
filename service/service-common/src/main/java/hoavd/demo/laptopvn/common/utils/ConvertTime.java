@@ -14,6 +14,11 @@ public class ConvertTime {
   //Date format
   private final static SimpleDateFormat DATE_TIME_FORMAT = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
+  public static String longToString(long milliseconds) {
+    Date date = new Date(milliseconds);
+    return DATE_FORMAT.format(date);
+  }
+
   public static long getTime(String stringDate) {
     try {
       Date date = ConvertTime.DATE_FORMAT.parse(stringDate);

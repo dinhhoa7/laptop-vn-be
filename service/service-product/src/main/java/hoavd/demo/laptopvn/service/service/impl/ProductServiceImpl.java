@@ -8,6 +8,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProductServiceImpl implements ProductService {
   @Autowired
@@ -16,6 +18,11 @@ public class ProductServiceImpl implements ProductService {
   @Override
   public Page<Product> getPageListProduct(String name, long category, Pageable pageable) {
     return productRepository.getPageListProduct(name, category, pageable);
+  }
+
+  @Override
+  public List<Product> getList(String name) {
+    return productRepository.getList(name);
   }
 
   @Override

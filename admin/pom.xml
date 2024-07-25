@@ -64,6 +64,10 @@
             <artifactId>springfox-swagger-ui</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+        </dependency>
+        <dependency>
             <groupId>hoavd.demo.laptopvn</groupId>
             <artifactId>laptop-vn-user</artifactId>
         </dependency>

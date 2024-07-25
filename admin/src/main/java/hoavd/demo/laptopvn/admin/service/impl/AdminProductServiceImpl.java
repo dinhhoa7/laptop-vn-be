@@ -2,16 +2,20 @@ package hoavd.demo.laptopvn.admin.service.impl;
 
 import hoavd.demo.laptopvn.admin.model.request.ProductRequest;
 import hoavd.demo.laptopvn.admin.model.request.ProductUpdateRequest;
-import hoavd.demo.laptopvn.admin.model.response.ProductDetailResponse;
+import hoavd.demo.laptopvn.admin.model.response.ProductResponse;
 import hoavd.demo.laptopvn.admin.service.AdminProductService;
 import hoavd.demo.laptopvn.common.constants.ResponseMessageConstants;
 import hoavd.demo.laptopvn.common.enums.Enums;
 import hoavd.demo.laptopvn.common.exception.BusinessException;
 import hoavd.demo.laptopvn.common.model.Pagination;
 import hoavd.demo.laptopvn.common.model.ResponseDataPagination;
+import hoavd.demo.laptopvn.common.model.response.ExportProductResponse;
+import hoavd.demo.laptopvn.common.utils.ConvertTime;
 import hoavd.demo.laptopvn.service.entity.Category;
 import hoavd.demo.laptopvn.service.entity.Product;
+import hoavd.demo.laptopvn.service.entity.ProductDetail;
 import hoavd.demo.laptopvn.service.service.CategoryService;
+import hoavd.demo.laptopvn.service.service.ProductDetailService;
 import hoavd.demo.laptopvn.service.service.ProductService;
 import org.apache.logging.log4j.util.Strings;
 import org.slf4j.Logger;
@@ -34,6 +38,9 @@ public class AdminProductServiceImpl implements AdminProductService {
 
   @Autowired
   private CategoryService categoryService;
+
+  @Autowired
+  private ProductDetailService productDetailService;
 
   @Override
   public Product createProduct(ProductRequest request) throws Exception {
@@ -83,9 +90,9 @@ public class AdminProductServiceImpl implements AdminProductService {
     Pageable pageable = PageRequest.of(pageReq, size);
     Page<Product> productPage = productService.getPageListProduct(name, category, pageable);
     List<Product> productList = productPage.getContent();
-    List<ProductDetailResponse> productDetailResponseList = new ArrayList<>();
+    List<ProductResponse> productDetailResponseList = new ArrayList<>();
     for (Product pr : productList){
-      ProductDetailResponse res = new ProductDetailResponse();
+      ProductResponse res = new ProductResponse();
       Category categoryObj = categoryService.getCategoryById(pr.getCategoryId());
       res.setId(pr.getId());
       res.setCode(pr.getCode());
@@ -107,5 +114,28 @@ public class AdminProductServiceImpl implements AdminProductService {
     responseDataPagination.setStatus(Enums.ResponseStatus.SUCCESS.getStatus());
     responseDataPagination.setPagination(pagination);
     return responseDataPagination;
+  }
+
+  @Override
+  public List<ExportProductResponse> getListProduct(String name) throws Exception {
+    List<ExportProductResponse> productResponseList = new ArrayList<>();
+    List<Product> productList = productService.getList(name);
+    for (Product pr : productList) {
+      ExportProductResponse res = new ExportProductResponse();
+      Category category = categoryService.getCategoryById(pr.getCategoryId());
+      ProductDetail productDetail = productDetailService.getProductDetailByProductId(pr.getId());
+      res.setId(pr.getId());
+      res.setCode(pr.getCode());
+      res.setCategoryId(pr.getCategoryId());
+      res.setCategoryName(category.getName());
+      res.setName(pr.getName());
+      res.setDescription(pr.getDescription());
+      res.setDateOfManufacture(ConvertTime.longToString(productDetail.getDateOfManufacture()));
+      res.setDiscount(String.valueOf(productDetail.getDiscount()));
+      res.setCreatedDate(ConvertTime.longToString(productDetail.getCreatedAt()));
+      res.setUpdatedDate(ConvertTime.longToString(productDetail.getUpdatedAt()));
+      productResponseList.add(res);
+    }
+    return productResponseList;
   }
 }

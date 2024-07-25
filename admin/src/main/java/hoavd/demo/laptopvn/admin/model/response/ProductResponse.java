@@ -1,6 +1,6 @@
 package hoavd.demo.laptopvn.admin.model.response;
 
-public class ProductDetailResponse {
+public class ProductResponse {
   private long id;
 
   private String code;
